@@ -1,0 +1,40 @@
+﻿@page "/SpeedFeedCalc"
+@rendermode InteractiveServer
+
+<h3>Speed Feed Calculator</h3>
+
+<div class="mb-3 row">
+    <label for="rpm" class="col-form-label">RPM</label>
+    <input type="number" id="rpm" class="form-control" aria-describedby="revolutions per minute" @bind=" rpm" />
+    <span id="rpmHelpInline" class="form-text">
+        Revolutions Per Minute of spindle.
+    </span>
+</div>
+
+<div class="mb-3 row">
+    <label for="diam" class="col-form-label">Tool Diameter</label>
+    <input type="number" id="diam" class="form-control" aria-describedby="diameter of toolbit" @bind="diam" />
+    <span id="diamHelpInline" class="form-text">
+        Diameter of toolbit note in inches.
+    </span>
+</div>
+
+<div class="mb-3 row">
+    <button type="button" class="btn btn-primary" @onclick="CalculateSFM">Calculate SFM</button>
+</div>
+
+<div class="mb-3 row">
+    <label for="sfm" class="col-form-label">Surface Feet Per Minute:</label>
+    <span id="sfm">@(Math.Round(sfm,2))</span>
+</div>
+
+@code {
+    private double rpm = 0.0;
+    private double diam = 0.0;
+    private double sfm = 0.0;
+
+    private void CalculateSFM()
+    {
+        sfm = rpm * diam / 3.82;
+    }
+}
