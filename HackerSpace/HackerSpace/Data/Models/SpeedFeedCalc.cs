@@ -4,30 +4,17 @@ namespace HackerSpace.Data.Models
 {
     public class SpeedFeedCalc
     {
-        private double rpm;
-
         [Required]
         [Range(0, 100000)]
-        public double RPM 
-        {
-            get { return rpm; }
-            set { rpm = value; CalculateSFM(); }
-        }
+        public double RPM { get; set; }
 
-        private double diam;
         [Required]
         [Range(0,double.MaxValue)]
-        public double Diam
-        {
-            get { return diam; }
-            set { diam = value; CalculateSFM(); }
-        }
+        public double Diam { get; set;}
 
-        public double SFM { get; private set; }
-
-        private void CalculateSFM()
+        public double GetSFM()
         {
-            SFM = rpm * diam / 3.82;
+            return RPM * Diam / 3.82;
         }
     }
 }

@@ -3,28 +3,48 @@
 @rendermode InteractiveServer
 
 <h3>Speed Feed Calculator</h3>
+<EditForm Model="SpeedFeedCalc" OnValidSubmit="@CalculateSFM">
+    <DataAnnotationsValidator />
+    <ValidationSummary/>
+    <div class="mb-3 row">
+        <label for="rpm" class="col-form-label">RPM</label>
+        <InputNumber id="rpm" class="form-control" aria-describedby="revolutions per minute" @bind-Value="SpeedFeedCalc.RPM" />
+        <ValidationMessage For="()=>SpeedFeedCalc.RPM"/>
+        <span id="rpmHelpInline" class="form-text">
+            Revolutions Per Minute of spindle.
+        </span>
+    </div>
 
-<div class="mb-3 row">
-    <label for="rpm" class="col-form-label">RPM</label>
-    <InputNumber id="rpm" class="form-control" aria-describedby="revolutions per minute" @bind-Value="speedFeedCalc.RPM" />
-    <span id="rpmHelpInline" class="form-text">
-        Revolutions Per Minute of spindle.
-    </span>
-</div>
+    <div class="mb-3 row">
+        <label for="diam" class="col-form-label">Tool Diameter</label>
+        <InputNumber id="diam" class="form-control" aria-describedby="diameter of toolbit" @bind-Value="SpeedFeedCalc.Diam" />
+        <ValidationMessage For="()=>SpeedFeedCalc.Diam" />
+        <span id="diamHelpInline" class="form-text">
+            Diameter of toolbit note in inches.
+        </span>
+    </div>
 
-<div class="mb-3 row">
-    <label for="diam" class="col-form-label">Tool Diameter</label>
-    <InputNumber id="diam" class="form-control" aria-describedby="diameter of toolbit" @bind-Value="speedFeedCalc.Diam" />
-    <span id="diamHelpInline" class="form-text">
-        Diameter of toolbit note in inches.
-    </span>
-</div>
 
-<div class="mb-3 row">
-    <label for="sfm" class="col-form-label">Surface Feet Per Minute:</label>
-    <span id="sfm">@(Math.Round(speedFeedCalc.SFM,2))</span>
-</div>
+    <div class="mb-3 row">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    
+    <div class="mb-3 row">
+        <label for="sfm" class="col-form-label">Surface Feet Per Minute:</label>
+        <span id="sfm">@sfm</span>
+    </div>
+</EditForm>
+
+
 
 @code {
-    private SpeedFeedCalc speedFeedCalc = new SpeedFeedCalc();
+
+    [SupplyParameterFromForm]
+    public SpeedFeedCalc SpeedFeedCalc { get; set; } = new SpeedFeedCalc();
+    double sfm;
+
+    private void CalculateSFM()
+    {
+        sfm = SpeedFeedCalc.GetSFM();
+    }
 }
