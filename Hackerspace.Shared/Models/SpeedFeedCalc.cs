@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HackerSpace.Data.Models
+namespace Hackerspace.Shared.Models
 {
     public class SpeedFeedCalc
     {
@@ -9,8 +9,8 @@ namespace HackerSpace.Data.Models
         public double RPM { get; set; }
 
         [Required]
-        [Range(0,double.MaxValue)]
-        public double Diam { get; set;}
+        [Range(0, double.MaxValue)]
+        public double Diam { get; set; }
 
         public double GetSFM()
         {
