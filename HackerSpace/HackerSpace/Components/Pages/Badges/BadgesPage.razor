@@ -1,0 +1,48 @@
+﻿@page "/badges"
+@rendermode InteractiveServer
+
+@inject IBadgesPageDataService badgesService
+<h3>Badges Page</h3>
+@if(_badges == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <ul>
+        @foreach (var badge in _badges)
+        {
+            <li>
+                <p>@badge.Id</p>
+                <p>@badge.Title</p>
+                <p>@badge.Description</p>
+                <p>@badge.TurnInInstructions</p>
+                <p>@badge.IsVisible</p>
+                <p><button type="button" @onclick="(()=>SelectBadge(badge))">Select</button></p>
+            </li>
+        }
+    </ul>
+}
+
+@* Detail View *@
+
+<p>Badge: @_badge?.Id</p>
+<p>Title: @_badge?.Title</p>
+<p>Description: @_badge?.Description</p>
+<p>TurnInInstructions: @_badge?.TurnInInstructions</p>
+<p>IsVisible: @_badge?.IsVisible</p>
+@code {
+    private List<Badge>? _badges;
+    private Badge? _badge;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _badges = await badgesService.GetAllAsync();
+        await base.OnInitializedAsync();
+    }
+
+    protected void SelectBadge(Badge badge)
+    {
+        _badge = badge;
+    }
+}
