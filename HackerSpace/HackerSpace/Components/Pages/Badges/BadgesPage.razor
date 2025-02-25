@@ -20,6 +20,7 @@ else
                 <p>@badge.TurnInInstructions</p>
                 <p>@badge.IsVisible</p>
                 <p><button type="button" @onclick="(()=>SelectBadge(badge))">Select</button></p>
+                <p><button type="button" @onclick="(()=>EditBadge(badge))">Select</button></p>
             </li>
         }
     </ul>
@@ -37,5 +38,10 @@ else
     protected void SelectBadge(Badge badge)
     {
         Navigation.NavigateTo($"/badge/{badge.Id.ToString()}");
+    }
+
+    protected void EditBadge(Badge badge)
+    {
+        Navigation.NavigateTo($"/badgeedit/{badge.Id.ToString()}");
     }
 }
