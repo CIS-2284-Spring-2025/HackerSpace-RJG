@@ -56,5 +56,6 @@ else
     private async Task DeleteBadgeAsync(Badge badge)
     {
         await badgesService.DeleteBadgeAsync(badge.Id);
+        _badges?.Remove(badge);
     }
 }
