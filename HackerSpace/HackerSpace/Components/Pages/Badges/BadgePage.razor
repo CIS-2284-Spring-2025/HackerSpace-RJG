@@ -9,6 +9,9 @@
 <p>TurnInInstructions: @_badge?.TurnInInstructions</p>
 <p>IsVisible: @_badge?.IsVisible</p>
 
+
+<p><a href="badges">return to badges page</a></p>
+
 @code {
     [Parameter]
     public string? Id { get; set; }
@@ -25,5 +28,6 @@
         {
             _badge = new Badge();
         }
+
     }
 }
