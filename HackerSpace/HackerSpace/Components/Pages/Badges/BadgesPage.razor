@@ -23,6 +23,7 @@ else
                 <p>
                     <button type="button" @onclick="(()=>SelectBadge(badge))">View</button>
                     <button type="button" @onclick="(()=>EditBadge(badge))">Edit</button>
+                    <button type="button" @onclick="(()=>DeleteBadgeAsync(badge))">Delete</button>
                 </p>
             </li>
         }
@@ -50,6 +51,10 @@ else
     }
     private void AddBadge(MouseEventArgs e)
     {
-        throw new NotImplementedException();
+        Navigation.NavigateTo("badgeedit");
+    }
+    private async Task DeleteBadgeAsync(Badge badge)
+    {
+        await badgesService.DeleteBadgeAsync(badge.Id);
     }
 }

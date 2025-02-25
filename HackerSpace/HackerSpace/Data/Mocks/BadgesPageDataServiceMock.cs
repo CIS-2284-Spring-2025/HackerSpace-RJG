@@ -79,6 +79,11 @@ namespace HackerSpace.Data.Mocks
                 _badges.Remove(existingBadge);
                 _badges.Add(badge);
             } 
+            else
+            {
+                badge.Id = Guid.NewGuid();
+                _badges.Add(badge);
+            }
             return Task.CompletedTask;
         }
     }
