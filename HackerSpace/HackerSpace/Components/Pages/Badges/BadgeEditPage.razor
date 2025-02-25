@@ -1,6 +1,6 @@
 ﻿@page "/badgeedit/{id}"
 @inject IBadgesPageDataService badgesService
-
+@inject NavigationManager Navigation
 @rendermode InteractiveServer
 <h3>Badge Edit Page</h3>
 @if (_badge == null)
@@ -14,15 +14,15 @@ else
     <p>TurnInInstructions: <input type="text" @bind="_badge.TurnInInstructions" /></p>
     <p>IsVisible: <input type="checkbox" @bind="_badge.IsVisible" /></p>
 
-    <p><button type="button" @onclick="OnSubmitAsync">Submit</button></p>
+    <p><button type="button" @onclick="OnSubmitAsync">Submit</button><button type="button" @onclick="OnCancel">Cancel</button></p>
+    <p>@message</p>
 }
-
-<p><a href="badges">return to badges page</a></p>
 
 @code {
     [Parameter]
     public string? Id { get; set; }
 
+    private string? message;
     private Badge? _badge;
 
     protected async override Task OnInitializedAsync()
@@ -41,6 +41,15 @@ else
         if (_badge is not null)
         {
             await badgesService.UpdateBadge(_badge);
+            Navigation.NavigateTo("badges");
         }
+        else
+        {
+            message = "Could not update badge please try again.";
+        }
+    }
+    private void OnCancel(MouseEventArgs e)
+    {
+        Navigation.NavigateTo("badges");
     }
 }
