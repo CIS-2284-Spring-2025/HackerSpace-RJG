@@ -23,9 +23,10 @@ namespace HackerSpace.Data.DataServices
             return await _context.Badges.Where(b=>b.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task UpdateBadge(Badge badge)
+        public async Task UpdateBadge(Badge badge)
         {
-            throw new NotImplementedException();
+            _context.Badges.Update(badge);
+            await _context.SaveChangesAsync();
         }
     }
 }

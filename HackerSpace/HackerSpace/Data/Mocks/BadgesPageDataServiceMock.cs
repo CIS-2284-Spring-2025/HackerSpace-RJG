@@ -63,7 +63,13 @@ namespace HackerSpace.Data.Mocks
 
         public Task UpdateBadge(Badge badge)
         {
-            return Task.FromResult(_badges.Remove(badge));
+            var existingBadge = _badges.FirstOrDefault(b=>b.Id == badge.Id);
+            if (existingBadge != null)
+            {
+                _badges.Remove(existingBadge);
+                _badges.Add(badge);
+            } 
+            return Task.CompletedTask;
         }
     }
 }
