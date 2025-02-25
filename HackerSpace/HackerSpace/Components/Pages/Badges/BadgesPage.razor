@@ -19,8 +19,10 @@ else
                 <p>@badge.Description</p>
                 <p>@badge.TurnInInstructions</p>
                 <p>@badge.IsVisible</p>
-                <p><button type="button" @onclick="(()=>SelectBadge(badge))">Select</button></p>
-                <p><button type="button" @onclick="(()=>EditBadge(badge))">Select</button></p>
+                <p>
+                    <button type="button" @onclick="(()=>SelectBadge(badge))">View</button>
+                    <button type="button" @onclick="(()=>EditBadge(badge))">Edit</button>
+                </p>
             </li>
         }
     </ul>
