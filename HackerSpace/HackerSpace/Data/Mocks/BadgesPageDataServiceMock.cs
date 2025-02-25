@@ -1,5 +1,6 @@
 ﻿using Entities.Interfaces;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace HackerSpace.Data.Mocks
@@ -53,6 +54,11 @@ namespace HackerSpace.Data.Mocks
         public Task<List<Badge>> GetAllAsync()
         {
             return Task.FromResult(_badges);
+        }
+
+        public Task<Badge?> GetBadgeAsync(Guid id)
+        {
+            return Task.FromResult(_badges.Where(b => b.Id == id).FirstOrDefault());
         }
     }
 }
