@@ -1,5 +1,6 @@
 ﻿@page "/badges"
 @rendermode InteractiveServer
+@inject NavigationManager Navigation
 
 @inject IBadgesPageDataService badgesService
 <h3>Badges Page</h3>
@@ -24,16 +25,8 @@ else
     </ul>
 }
 
-@* Detail View *@
-
-<p>Badge: @_badge?.Id</p>
-<p>Title: @_badge?.Title</p>
-<p>Description: @_badge?.Description</p>
-<p>TurnInInstructions: @_badge?.TurnInInstructions</p>
-<p>IsVisible: @_badge?.IsVisible</p>
 @code {
     private List<Badge>? _badges;
-    private Badge? _badge;
 
     protected override async Task OnInitializedAsync()
     {
@@ -43,6 +36,6 @@ else
 
     protected void SelectBadge(Badge badge)
     {
-        _badge = badge;
+        Navigation.NavigateTo($"/badge/{badge.Id.ToString()}");
     }
 }
