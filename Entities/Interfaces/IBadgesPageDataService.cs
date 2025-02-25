@@ -6,5 +6,6 @@ namespace Entities.Interfaces
     {
         public Task<List<Badge>> GetAllAsync();
         public Task<Badge?> GetBadgeAsync(Guid id);
+        public Task UpdateBadge(Badge badge);
     }
 }

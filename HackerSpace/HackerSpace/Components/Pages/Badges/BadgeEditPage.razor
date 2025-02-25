@@ -1,5 +1,6 @@
 ﻿@page "/badgeedit/{id}"
 @inject IBadgesPageDataService badgesService
+
 @rendermode InteractiveServer
 <h3>Badge Edit Page</h3>
 @if (_badge == null)
@@ -12,6 +13,8 @@ else
     <p>Description: <input type="text" @bind="_badge.Description" /></p>
     <p>TurnInInstructions: <input type="text" @bind="_badge.TurnInInstructions" /></p>
     <p>IsVisible: <input type="checkbox" @bind="_badge.IsVisible" /></p>
+
+    <p><button type="button" @onclick="OnSubmitAsync">Submit</button></p>
 }
 
 <p><a href="badges">return to badges page</a></p>
@@ -31,6 +34,13 @@ else
         else
         {
             _badge = new Badge();
+        }
+    }
+    private async Task OnSubmitAsync(MouseEventArgs e)
+    {
+        if (_badge is not null)
+        {
+            await badgesService.UpdateBadge(_badge);
         }
     }
 }

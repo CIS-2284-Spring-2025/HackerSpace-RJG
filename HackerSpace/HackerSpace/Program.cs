@@ -47,7 +47,7 @@ namespace HackerSpace
             builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
             //Add data services
-            builder.Services.AddTransient<IBadgesPageDataService, BadgesPageDataService>();
+            builder.Services.AddSingleton<IBadgesPageDataService, BadgesPageDataServiceMock>();
 
             var app = builder.Build();
 
