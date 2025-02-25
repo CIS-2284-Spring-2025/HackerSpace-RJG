@@ -1,0 +1,29 @@
+﻿@page "/badge/{Id}"
+@inject IBadgesPageDataService badgesService
+
+<h3>Badge Page</h3>
+
+<p>Badge: @_badge?.Id</p>
+<p>Title: @_badge?.Title</p>
+<p>Description: @_badge?.Description</p>
+<p>TurnInInstructions: @_badge?.TurnInInstructions</p>
+<p>IsVisible: @_badge?.IsVisible</p>
+
+@code {
+    [Parameter]
+    public string? Id { get; set; }
+
+    private Badge? _badge;
+
+    protected async override Task OnInitializedAsync()
+    {
+        if (Id is not null)
+        {
+            _badge = await badgesService.GetBadgeAsync(Guid.Parse(Id));
+        }
+        else
+        {
+            _badge = new Badge();
+        }
+    }
+}

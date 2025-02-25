@@ -17,5 +17,10 @@ namespace HackerSpace.Data.DataServices
         {
             return await _context.Badges.ToListAsync();
         }
+
+        public async Task<Badge?> GetBadgeAsync(Guid id)
+        {
+            return await _context.Badges.Where(b=>b.Id == id).FirstOrDefaultAsync();
+        }
     }
 }
