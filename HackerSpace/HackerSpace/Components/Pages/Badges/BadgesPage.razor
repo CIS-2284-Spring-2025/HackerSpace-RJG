@@ -27,6 +27,7 @@ else
             </li>
         }
     </ul>
+    <button type="button" @onclick="AddBadge">Add</button>
 }
 
 @code {
@@ -46,5 +47,9 @@ else
     protected void EditBadge(Badge badge)
     {
         Navigation.NavigateTo($"/badgeedit/{badge.Id.ToString()}");
+    }
+    private void AddBadge(MouseEventArgs e)
+    {
+        throw new NotImplementedException();
     }
 }

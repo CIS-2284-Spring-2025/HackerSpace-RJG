@@ -51,6 +51,16 @@ namespace HackerSpace.Data.Mocks
             }
         };
 
+        public Task DeleteBadgeAsync(Guid id)
+        {
+            var badgeToRemove = _badges.Where(b => b.Id == id).FirstOrDefault();
+            if (badgeToRemove != null)
+            {
+                _badges.Remove(badgeToRemove);
+            }
+            return Task.CompletedTask;
+        }
+
         public Task<List<Badge>> GetAllAsync()
         {
             return Task.FromResult(_badges);

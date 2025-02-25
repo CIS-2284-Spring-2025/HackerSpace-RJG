@@ -13,6 +13,11 @@ namespace HackerSpace.Data.DataServices
             _context = context;
         }
 
+        public Task DeleteBadgeAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<Badge>> GetAllAsync()
         {
             return await _context.Badges.ToListAsync();
