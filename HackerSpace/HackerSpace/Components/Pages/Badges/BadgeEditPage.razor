@@ -10,13 +10,35 @@
 }
 else
 {
-    <p>Title: <input type="text" @bind="_badge.Title" /></p>
-    <p>Description: <input type="text" @bind="_badge.Description" /></p>
-    <p>TurnInInstructions: <input type="text" @bind="_badge.TurnInInstructions" /></p>
-    <p>IsVisible: <input type="checkbox" @bind="_badge.IsVisible" /></p>
-
-    <p><button type="button" @onclick="OnSubmitAsync">Submit</button><button type="button" @onclick="OnCancel">Cancel</button></p>
+    <EditForm Model="_badge">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <InputText @bind-Value="_badge.Title"  class="form-control" id="title" aria-describedby="Title for badge"/>
+            <div id="badgeHelp" class="form-text">Please enter a short title for the badge.</div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <InputTextArea @bind-Value="_badge.Description" class="form-control" id="description" aria-describedby="Description for badge" />
+            <div id="descriptionHelp" class="form-text">Please enter a description for the badge.</div>
+        </div>
+        <div class="mb-3">
+            <label for="turnInInstructions" class="form-label">Turn In Instructions</label>
+            <InputTextArea @bind-Value="_badge.Description" rows="10"  class="form-control" id="turnInInstructions" aria-describedby="Turn in instructions for badge" />
+            <div id="turnInInstructionsHelp" class="form-text">Please enter turn in instructions for the badge. Typically have them upload a project to github and email evaluator the link or upload a video to youtube and send the evaluator the link.</div>
+        </div>
+        <div class="mb-3">
+            <div class="form-check">
+                <InputCheckbox @bind-Value="isVisible" class="form-check-input" id="isVisible" aria-describedby="Make this badge visible to users." />
+                <label class="form-check-label" for="isVisible">
+                    Is Visible
+                </label>
+                <div id="isVisibleHelp" class="form-text">Check this when ready for users to see it.</div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" @onclick="OnSubmitAsync">Submit</button>
+        <button type="button" class="btn btn-warning" @onclick="OnCancel">Cancel</button>
     <p>@message</p>
+    </EditForm>
 }
 
 @code {
@@ -25,22 +47,25 @@ else
 
     private string? message;
     private Badge? _badge;
-
+    private bool isVisible = false;
     protected async override Task OnInitializedAsync()
     {
         if (Id is not null)
         {
             _badge = await badgesService.GetBadgeAsync(Guid.Parse(Id));
+
         }
         else
         {
             _badge = new Badge();
         }
+        isVisible = _badge?.IsVisible == true;
     }
     private async Task OnSubmitAsync(MouseEventArgs e)
     {
         if (_badge is not null)
         {
+            _badge.IsVisible = isVisible;
             await badgesService.UpdateBadge(_badge);
             Navigation.NavigateTo("badges");
         }
