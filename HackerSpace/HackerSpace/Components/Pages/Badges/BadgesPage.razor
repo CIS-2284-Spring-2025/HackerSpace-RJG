@@ -11,24 +11,30 @@
 }
 else
 {
-    <ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Published</th>
+                <th scope="col">Commands</th>
+            </tr>
+        </thead>
+        <tbody>
         @foreach (var badge in _badges)
         {
-            <li>
-                <p>@badge.Id</p>
-                <p>@badge.Title</p>
-                <p>@badge.Description</p>
-                <p>@badge.TurnInInstructions</p>
-                <p>@badge.IsVisible</p>
-                <p>
-                    <button type="button" @onclick="(()=>SelectBadge(badge))">View</button>
-                    <button type="button" @onclick="(()=>EditBadge(badge))">Edit</button>
-                    <button type="button" @onclick="(()=>DeleteBadgeAsync(badge))">Delete</button>
-                </p>
-            </li>
+            <tr>
+                <td>@badge.Title</td>
+                <td>@badge.IsVisible</td>
+                <td>
+                    <button  class="btn btn-sm btn-outline-primary" type="button" @onclick="(()=>SelectBadge(badge))">View</button>
+                        <button class="btn btn-sm btn-outline-primary" type="button" @onclick="(()=>EditBadge(badge))">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger" type="button" @onclick="(()=>DeleteBadgeAsync(badge))">Delete</button>
+                </td>
+            </tr>
         }
-    </ul>
-    <button type="button" @onclick="AddBadge">Add</button>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" type="button" @onclick="AddBadge">Add</button>
 }
 
 @code {

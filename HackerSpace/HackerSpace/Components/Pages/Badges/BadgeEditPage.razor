@@ -10,32 +10,37 @@
 }
 else
 {
-    <EditForm Model="_badge">
+    <EditForm Model="_badge" OnValidSubmit="OnSubmitAsync">
+        <DataAnnotationsValidator/>
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <InputText @bind-Value="_badge.Title"  class="form-control" id="title" aria-describedby="Title for badge"/>
+            <InputText @bind-Value="_badge.Title" class="form-control" id="title" aria-describedby="Title for badge" />
+            <ValidationMessage For="()=>_badge.Title" />
             <div id="badgeHelp" class="form-text">Please enter a short title for the badge.</div>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <InputTextArea @bind-Value="_badge.Description" class="form-control" id="description" aria-describedby="Description for badge" />
+            <ValidationMessage For="()=>_badge.Description" />
             <div id="descriptionHelp" class="form-text">Please enter a description for the badge.</div>
         </div>
         <div class="mb-3">
             <label for="turnInInstructions" class="form-label">Turn In Instructions</label>
-            <InputTextArea @bind-Value="_badge.Description" rows="10"  class="form-control" id="turnInInstructions" aria-describedby="Turn in instructions for badge" />
+            <InputTextArea @bind-Value="_badge.TurnInInstructions" rows="10" class="form-control" id="turnInInstructions" aria-describedby="Turn in instructions for badge" />
+            <ValidationMessage For="()=>_badge.TurnInInstructions" />
             <div id="turnInInstructionsHelp" class="form-text">Please enter turn in instructions for the badge. Typically have them upload a project to github and email evaluator the link or upload a video to youtube and send the evaluator the link.</div>
         </div>
         <div class="mb-3">
             <div class="form-check">
                 <InputCheckbox @bind-Value="isVisible" class="form-check-input" id="isVisible" aria-describedby="Make this badge visible to users." />
+                <ValidationMessage For="()=>_badge.IsVisible" />
                 <label class="form-check-label" for="isVisible">
                     Is Visible
                 </label>
                 <div id="isVisibleHelp" class="form-text">Check this when ready for users to see it.</div>
             </div>
         </div>
-        <button type="button" class="btn btn-primary" @onclick="OnSubmitAsync">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
         <button type="button" class="btn btn-warning" @onclick="OnCancel">Cancel</button>
     <p>@message</p>
     </EditForm>
@@ -61,7 +66,8 @@ else
         }
         isVisible = _badge?.IsVisible == true;
     }
-    private async Task OnSubmitAsync(MouseEventArgs e)
+
+    private async Task OnSubmitAsync()
     {
         if (_badge is not null)
         {
@@ -74,7 +80,7 @@ else
             message = "Could not update badge please try again.";
         }
     }
-    private void OnCancel(MouseEventArgs e)
+    private void OnCancel()
     {
         Navigation.NavigateTo("badges");
     }
