@@ -34,5 +34,10 @@ namespace Entities.Models
         /// Badge is not displayed to students until this is true. Required and must have 20 characters.
         /// </summary>
         public bool? IsVisible { get; set; }
+
+        /// <summary>
+        /// Navigation property linking to evaluators that can evaluate this badge.
+        /// </summary>
+        public virtual List<Evaluator>? Evaluators { get; set; }
     }
 }

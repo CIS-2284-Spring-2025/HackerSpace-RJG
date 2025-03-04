@@ -7,5 +7,6 @@ namespace HackerSpace.Data
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
     {
         public DbSet<Badge> Badges { get; set; }
+        public DbSet<Evaluator> Evaluators { get; set; }
     }    
 }
