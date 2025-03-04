@@ -1,5 +1,8 @@
 ﻿@page "/badgeedit/{id}"
 @page "/badgeedit"
+
+@attribute [Authorize(Roles ="Admin")]
+
 @inject IBadgesPageDataService badgesService
 @inject NavigationManager Navigation
 @rendermode InteractiveServer
