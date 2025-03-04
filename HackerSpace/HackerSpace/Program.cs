@@ -49,6 +49,7 @@ namespace HackerSpace
 
             //Add data services
             builder.Services.AddTransient<IBadgesPageDataService, BadgesPageDataService>();
+            builder.Services.AddSingleton<IEvaluatorsPageDataService, EvaluatorsPageDataServiceMock>();
 
             var app = builder.Build();
 
