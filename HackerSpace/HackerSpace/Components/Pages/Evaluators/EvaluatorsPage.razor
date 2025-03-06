@@ -2,6 +2,7 @@
 @attribute [Authorize(Roles="Admin")]
 @rendermode InteractiveServer
 @inject IEvaluatorsPageDataService dataService
+
 <h3>Evaluators</h3>
 
 @if (evaluators is null)
@@ -13,18 +14,18 @@ else
     <div class="accordion" id="evalatorsAccordion">
         @foreach(var evaluator in evaluators)
         {
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="@("#collapse"+evaluator.Id.ToString())" aria-expanded="false" aria-controls="@("collapse"+evaluator.Id.ToString())">
-                    @evaluator.FirstName @evaluator.LastName
-                </button>
-            </h2>
-                <div id="@("collapse"+evaluator.Id.ToString())" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#evalatorsAccordion">
-                <div class="accordion-body">
-                   <p>Evaluator info</p>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="@("#collapse"+evaluator.Id.ToString())" aria-expanded="false" aria-controls="@("collapse"+evaluator.Id.ToString())">
+                        @evaluator.FirstName @evaluator.LastName
+                    </button>
+                </h2>
+                    <div id="@("collapse"+evaluator.Id.ToString())" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#evalatorsAccordion">
+                    <div class="accordion-body">
+                       <EvaluatorDetail Evaluator="evaluator"/>
+                    </div>
                 </div>
             </div>
-        </div>
         }
     </div>
 }

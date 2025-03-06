@@ -1,0 +1,29 @@
+﻿@rendermode InteractiveServer
+
+@if (Evaluator is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="input-group mb-3">
+        <InputText @bind-Value="Evaluator.FirstName" class="form-control" placeholder="First Name" aria-label="FirstName" aria-describedby="First Name" />
+    </div>
+    <div class="input-group mb-3">
+        <InputText @bind-Value="Evaluator.MiddleName" class="form-control" placeholder="Middle Name" aria-label="MiddleName" aria-describedby="Middle Name" />
+    </div>
+    <div class="input-group mb-3">
+        <InputText @bind-Value="Evaluator.LastName" class="form-control" placeholder="Last Name" aria-label="LastName" aria-describedby="Last Name" />
+    </div>
+
+    @foreach(var badge in Evaluator.Badges)
+    {
+        <p>@badge.Title</p>
+    }
+}
+@code {
+    [Parameter]
+    public Evaluator Evaluator { get; set; } = default!;
+
+
+}
