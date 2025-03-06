@@ -1,7 +1,5 @@
 ﻿using Entities.Interfaces;
 using Entities.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace HackerSpace.Data.Mocks
 {

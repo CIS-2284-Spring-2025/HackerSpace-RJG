@@ -1,13 +1,39 @@
-﻿<h3>Evaluators</h3>
+﻿@page "/evaluators"
+@attribute [Authorize(Roles="Admin")]
+@rendermode InteractiveServer
+@inject IEvaluatorsPageDataService dataService
+<h3>Evaluators</h3>
 
-
-
+@if (evaluators is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="accordion" id="evalatorsAccordion">
+        @foreach(var evaluator in evaluators)
+        {
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="@("#collapse"+evaluator.Id.ToString())" aria-expanded="false" aria-controls="@("collapse"+evaluator.Id.ToString())">
+                    @evaluator.FirstName @evaluator.LastName
+                </button>
+            </h2>
+                <div id="@("collapse"+evaluator.Id.ToString())" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#evalatorsAccordion">
+                <div class="accordion-body">
+                   <p>Evaluator info</p>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+}
 
 @code {
     private List<Evaluator> evaluators = default!;
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        return base.OnInitializedAsync();
+        evaluators = await dataService.GetAllAsync();
     }
 }
