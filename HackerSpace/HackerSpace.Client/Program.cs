@@ -1,4 +1,6 @@
+using Entities.Interfaces;
 using HackerSpace.Client;
+using HackerSpace.Client.Data.DataServices;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -13,6 +15,16 @@ namespace HackerSpace.Client
             builder.Services.AddAuthorizationCore();
             builder.Services.AddCascadingAuthenticationState();
             builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticationStateProvider>();
+
+            //For Api calls
+            builder.Services.AddTransient(sp =>
+            new HttpClient
+            {
+                BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "https://localhost:5002")
+            });
+
+            //Add data services
+            builder.Services.AddTransient<IBadgesPageDataService, BadgesPageDataService>();
 
             await builder.Build().RunAsync();
         }

@@ -49,6 +49,9 @@ namespace HackerSpace
             //Add data services
             builder.Services.AddTransient<IBadgesPageDataService, BadgesPageDataService>();
 
+            //To enable web api
+            builder.Services.AddControllers();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -76,6 +79,9 @@ namespace HackerSpace
 
             // Add additional endpoints required by the Identity /Account Razor components.
             app.MapAdditionalIdentityEndpoints();
+
+            //To enable web api
+            app.MapControllers();
 
             app.Run();
         }

@@ -23,7 +23,7 @@ namespace HackerSpace.Data.DataServices
             }
         }
 
-        public async Task<List<Badge>> GetAllAsync()
+        public async Task<List<Badge>?> GetAllAsync()
         {
             return await _context.Badges.ToListAsync();
         }
