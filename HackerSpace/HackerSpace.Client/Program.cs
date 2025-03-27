@@ -20,7 +20,7 @@ namespace HackerSpace.Client
             builder.Services.AddTransient(sp =>
             new HttpClient
             {
-                BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "https://localhost:5002")
+                BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "https://localhost:7170")
             });
 
             //Add data services
