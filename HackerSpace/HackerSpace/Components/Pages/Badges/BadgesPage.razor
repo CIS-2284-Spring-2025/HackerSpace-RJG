@@ -27,14 +27,18 @@ else
                 <td>@badge.IsVisible</td>
                 <td>
                     <button  class="btn btn-sm btn-outline-primary" type="button" @onclick="(()=>SelectBadge(badge))">View</button>
+                    <AuthorizeView Roles="Admin">
                         <button class="btn btn-sm btn-outline-primary" type="button" @onclick="(()=>EditBadge(badge))">Edit</button>
                         <button class="btn btn-sm btn-outline-danger" type="button" @onclick="(()=>DeleteBadgeAsync(badge))">Delete</button>
+                    </AuthorizeView>
                 </td>
             </tr>
         }
         </tbody>
     </table>
-    <button class="btn btn-primary" type="button" @onclick="AddBadge">Add</button>
+    <AuthorizeView Roles="Admin">
+        <button class="btn btn-primary" type="button" @onclick="AddBadge">Add</button>
+    </AuthorizeView>
 }
 
 @code {

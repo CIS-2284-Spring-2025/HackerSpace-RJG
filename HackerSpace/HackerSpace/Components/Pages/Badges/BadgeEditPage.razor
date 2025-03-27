@@ -3,6 +3,10 @@
 @inject IBadgesPageDataService badgesService
 @inject NavigationManager Navigation
 @rendermode InteractiveServer
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Roles = "Admin")]
+
 <h3>Badge Edit Page</h3>
 @if (_badge == null)
 {
