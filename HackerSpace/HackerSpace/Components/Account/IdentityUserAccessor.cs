@@ -1,3 +1,4 @@
+using Entities.Models;
 using HackerSpace.Data;
 using Microsoft.AspNetCore.Identity;
 

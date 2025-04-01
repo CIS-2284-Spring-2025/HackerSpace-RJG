@@ -1,0 +1,73 @@
+﻿@page "/evaluatoredit/{id}"
+@page "/evaluatoredit"
+@using HackerSpace.Data
+@using HackerSpace.Data.DataServices
+@inject EvaluatorsDataService dataService
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<h3>EvaluatorEditPage</h3>
+@if (_evaluator == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <EditForm Model="_evaluator" OnValidSubmit="OnSubmitAsync">
+        <DataAnnotationsValidator />
+        <InputSelect id="evaluator" @bind-Value="_evaluator.ApplicationUserId">
+            @foreach (var user in users)
+            {
+                <option value="@user.Id">@user.Email</option>
+            }
+        </InputSelect>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-warning" @onclick="OnCancel">Cancel</button>
+        <p>@message</p>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public string? Id { get; set; }
+    private List<ApplicationUser> users = default!;
+
+    private string? message;
+    private Evaluator? _evaluator;
+
+    protected async override Task OnInitializedAsync()
+    {
+        users = await dataService.GetApplicationUsersAsync();
+        if (Id is not null)
+        {
+            _evaluator = await dataService.GetAsync(Guid.Parse(Id));
+            if(_evaluator == null)
+            {
+                message = "No evaluator found";
+            }
+        }
+        else
+        {
+            _evaluator = new Evaluator();
+        }
+    }
+
+    private async Task OnSubmitAsync()
+    {
+        if (_evaluator!.Id == Guid.Empty)
+        {
+            await dataService.AddAsync(_evaluator);
+
+        }
+        else
+        {
+            await dataService.UpdateAsync(_evaluator);
+        }
+        Navigation.NavigateTo("evaluators");
+
+    }
+    private void OnCancel()
+    {
+        Navigation.NavigateTo("badges");
+    }
+}

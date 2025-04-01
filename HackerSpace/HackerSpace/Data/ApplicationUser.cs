@@ -9,5 +9,4 @@ namespace HackerSpace.Data
         public string? LastName { get; set; }
         public string? MiddleName { get; set; }
     }
-
 }

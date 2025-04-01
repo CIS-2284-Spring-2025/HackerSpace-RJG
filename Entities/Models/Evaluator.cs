@@ -6,5 +6,6 @@
      /// </summary>
         public Guid Id { get; set; }
         public Guid ApplicationUserId { get; set; }
+        public Guid BadgeId { get; set; }
     }
 }

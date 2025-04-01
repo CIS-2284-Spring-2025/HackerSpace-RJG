@@ -1,4 +1,5 @@
 using Entities.Interfaces;
+using Entities.Models;
 using HackerSpace.Client.Pages;
 using HackerSpace.Components;
 using HackerSpace.Components.Account;
@@ -49,6 +50,7 @@ namespace HackerSpace
 
             //Add data services
             builder.Services.AddTransient<IBadgesPageDataService, BadgesPageDataService>();
+            builder.Services.AddTransient<EvaluatorsDataService>();
 
             //To enable web api
             builder.Services.AddControllers();
