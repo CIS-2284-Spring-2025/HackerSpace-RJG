@@ -21,6 +21,12 @@ else
                 <option value="@user.Id">@user.Email</option>
             }
         </InputSelect>
+        <InputSelect id="badge" @bind-Value="_evaluator.BadgeId">
+            @foreach (var badge in badges)
+            {
+                <option value="@badge.Id">@badge.Title</option>
+            }
+        </InputSelect>
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="button" class="btn btn-warning" @onclick="OnCancel">Cancel</button>
         <p>@message</p>
@@ -31,6 +37,7 @@ else
     [Parameter]
     public string? Id { get; set; }
     private List<ApplicationUser> users = default!;
+    private List<Badge> badges = default!;
 
     private string? message;
     private Evaluator? _evaluator;
@@ -38,6 +45,8 @@ else
     protected async override Task OnInitializedAsync()
     {
         users = await dataService.GetApplicationUsersAsync();
+        badges = await dataService.GetBadgesAsync();
+
         if (Id is not null)
         {
             _evaluator = await dataService.GetAsync(Guid.Parse(Id));

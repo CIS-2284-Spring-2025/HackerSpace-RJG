@@ -18,12 +18,12 @@ namespace HackerSpace.Data.DataServices
 
         public async Task<List<Evaluator>?> GetAllAsync()
         {
-            return await _context.Evaluators.ToListAsync();
+            return await _context.Evaluators.Include(e=>e.Badge).ToListAsync();
         }
 
         public async Task<Evaluator?> GetAsync(Guid id)
         {
-            return await _context.Evaluators.Where(b => b.Id == id).FirstOrDefaultAsync();
+            return await _context.Evaluators.Include(e=>e.Badge).Where(b => b.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task AddAsync(Evaluator evaluator)
@@ -51,6 +51,11 @@ namespace HackerSpace.Data.DataServices
         public async Task<List<ApplicationUser>> GetApplicationUsersAsync()
         {
             return await _userManager.Users.ToListAsync();
+        }
+
+        public async Task<List<Badge>> GetBadgesAsync()
+        {
+            return await _context.Badges.ToListAsync();
         }
     }
 }

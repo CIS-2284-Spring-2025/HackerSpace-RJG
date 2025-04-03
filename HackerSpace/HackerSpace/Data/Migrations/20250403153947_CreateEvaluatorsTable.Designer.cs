@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HackerSpace.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250327171150_CreateEvaluatorsTable")]
+    [Migration("20250403153947_CreateEvaluatorsTable")]
     partial class CreateEvaluatorsTable
     {
         /// <inheritdoc />
@@ -60,7 +60,12 @@ namespace HackerSpace.Migrations
                     b.Property<Guid>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("BadgeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("BadgeId");
 
                     b.ToTable("Evaluators");
                 });
@@ -270,6 +275,17 @@ namespace HackerSpace.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.Models.Evaluator", b =>
+                {
+                    b.HasOne("Entities.Models.Badge", "Badge")
+                        .WithMany()
+                        .HasForeignKey("BadgeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Badge");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

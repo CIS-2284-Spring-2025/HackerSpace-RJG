@@ -16,7 +16,7 @@ else
 {
     foreach(var evaluator in evaluators)
     {
-        <p>@evaluator.ApplicationUserId - @evaluator.BadgeId</p>
+        <p>@evaluator.ApplicationUserId - @evaluator.Badge?.Title</p>
     }
     <button type="button" class="btn btn-primary" @onclick="OnAddClick">Add</button>
 }

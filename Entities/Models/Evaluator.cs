@@ -7,5 +7,6 @@
         public Guid Id { get; set; }
         public Guid ApplicationUserId { get; set; }
         public Guid BadgeId { get; set; }
+        virtual public Badge? Badge { get; set; }
     }
 }

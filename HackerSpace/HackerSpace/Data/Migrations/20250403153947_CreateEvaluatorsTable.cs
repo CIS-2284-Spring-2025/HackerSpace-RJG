@@ -64,12 +64,24 @@ namespace HackerSpace.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BadgeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Evaluators", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Evaluators_Badges_BadgeId",
+                        column: x => x.BadgeId,
+                        principalTable: "Badges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Evaluators_BadgeId",
+                table: "Evaluators",
+                column: "BadgeId");
         }
 
         /// <inheritdoc />

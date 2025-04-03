@@ -62,6 +62,8 @@ namespace HackerSpace.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BadgeId");
+
                     b.ToTable("Evaluators");
                 });
 
@@ -270,6 +272,17 @@ namespace HackerSpace.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.Models.Evaluator", b =>
+                {
+                    b.HasOne("Entities.Models.Badge", "Badge")
+                        .WithMany()
+                        .HasForeignKey("BadgeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Badge");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
