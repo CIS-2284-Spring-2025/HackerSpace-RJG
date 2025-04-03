@@ -1,0 +1,35 @@
+﻿@page "/requesteval/{BadgeId}"
+@inject IBadgesPageDataService dataService
+@attribute [Authorize]
+
+<h3>Requesting evaluation of your work on the @badge?.Title badge.</h3>
+
+<p>You can use this page to request evaluation of your work to see if you can be awarded the badge.</p>
+
+<div class="mb-3">
+    <label for="submissionText" class="form-label">Submission Text</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  @bind="@evaluationRequest.SubmissionText"></textarea>
+</div>
+<div class="mb-3">
+    <button class="btn btn-primary" @onclick="OnSubmitClick">Submit</button>
+</div>
+
+@code {
+    [Parameter]
+    public string BadgeId{ get; set; } = default!;
+
+    EvaluationRequest evaluationRequest = new EvaluationRequest();
+
+    private Badge? badge = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        badge = await dataService.GetBadgeAsync(Guid.Parse(BadgeId));
+        evaluationRequest.BadgeId = badge?.Id;
+        evaluationRequest.UserId = ????? //TODO: <-- how do we get user id from client app????
+    }
+
+    private void OnSubmitClick(MouseEventArgs e)
+    {
+    }
+}

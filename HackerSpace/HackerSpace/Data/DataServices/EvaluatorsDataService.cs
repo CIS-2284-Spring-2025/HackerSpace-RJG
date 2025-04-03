@@ -18,7 +18,13 @@ namespace HackerSpace.Data.DataServices
 
         public async Task<List<Evaluator>?> GetAllAsync()
         {
-            return await _context.Evaluators.Include(e=>e.Badge).ToListAsync();
+            var evaluators = await _context.Evaluators.Include(e=>e.Badge).ToListAsync();
+            foreach (Evaluator evaluator in evaluators)
+            {
+                var user = await _userManager.FindByIdAsync(evaluator.ApplicationUserId.ToString());
+                evaluator.Email = user?.Email;
+            }
+            return evaluators;
         }
 
         public async Task<Evaluator?> GetAsync(Guid id)

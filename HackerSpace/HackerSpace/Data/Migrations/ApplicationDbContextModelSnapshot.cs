@@ -45,7 +45,7 @@ namespace HackerSpace.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Badges");
+                    b.ToTable("Badges", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Models.Evaluator", b =>
@@ -64,7 +64,7 @@ namespace HackerSpace.Migrations
 
                     b.HasIndex("BadgeId");
 
-                    b.ToTable("Evaluators");
+                    b.ToTable("Evaluators", (string)null);
                 });
 
             modelBuilder.Entity("HackerSpace.Data.ApplicationUser", b =>

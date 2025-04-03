@@ -3,6 +3,7 @@
 @rendermode InteractiveWebAssembly
 
 @inject IBadgesPageDataService badgesService
+@inject NavigationManager navigation
 
 <h3>Badge Page</h3>
 
@@ -12,7 +13,7 @@
 <p>TurnInInstructions: @_badge?.TurnInInstructions</p>
 <p>IsVisible: @_badge?.IsVisible</p>
 
-
+<p><button class="btn btn-primary" @onclick="OnRequestEvaluationClicked">Request Evaluation</button></p>
 <p><a href="badges">return to badges page</a></p>
 
 @code {
@@ -32,5 +33,9 @@
             _badge = new Badge();
         }
 
+    }
+    private void OnRequestEvaluationClicked(MouseEventArgs e)
+    {
+        navigation.NavigateTo($"requesteval/{_badge?.Id}");
     }
 }
