@@ -1,5 +1,9 @@
 ﻿@page "/requesteval/{BadgeId}"
+@using System.Security.Claims
+@rendermode InteractiveWebAssembly
+
 @inject IBadgesPageDataService dataService
+@inject AuthenticationStateProvider auth
 @attribute [Authorize]
 
 <h3>Requesting evaluation of your work on the @badge?.Title badge.</h3>
@@ -13,8 +17,12 @@
 <div class="mb-3">
     <button class="btn btn-primary" @onclick="OnSubmitClick">Submit</button>
 </div>
-
+<p>
+    Message: @message
+</p>
 @code {
+    string message = "";
+
     [Parameter]
     public string BadgeId{ get; set; } = default!;
 
@@ -26,7 +34,12 @@
     {
         badge = await dataService.GetBadgeAsync(Guid.Parse(BadgeId));
         evaluationRequest.BadgeId = badge?.Id;
-        evaluationRequest.UserId = ????? //TODO: <-- how do we get user id from client app????
+
+        var authState = await auth.GetAuthenticationStateAsync();
+        ClaimsPrincipal claims = authState.User;
+        string? name = claims.Identity?.Name;
+        evaluationRequest.UserId = name; //TODO: <-- how do we get user id from client app????
+        message = name;
     }
 
     private void OnSubmitClick(MouseEventArgs e)
