@@ -8,5 +8,6 @@ namespace HackerSpace.Data
     {
         public DbSet<Badge> Badges { get; set; }
         public DbSet<Evaluator> Evaluators { get; set; }
+        public DbSet<EvaluationRequest> EvaluationRequests { get; set; }
     }    
 }

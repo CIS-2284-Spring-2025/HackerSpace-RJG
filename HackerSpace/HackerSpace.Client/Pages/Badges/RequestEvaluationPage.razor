@@ -36,10 +36,11 @@
         evaluationRequest.BadgeId = badge?.Id;
 
         var authState = await auth.GetAuthenticationStateAsync();
-        ClaimsPrincipal claims = authState.User;
-        string? name = claims.Identity?.Name;
-        evaluationRequest.UserId = name; //TODO: <-- how do we get user id from client app????
-        message = name;
+        
+        // ClaimsPrincipal claims = authState.User;
+        // string? name = claims.Identity?.Name;
+        // evaluationRequest.UserId = name; //TODO: <-- how do we get user id from client app????
+        //message = name;
     }
 
     private void OnSubmitClick(MouseEventArgs e)

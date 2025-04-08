@@ -13,11 +13,6 @@ namespace HackerSpace.Client.Data.DataServices
             _http = http;
         }
 
-        public Task DeleteBadgeAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<Badge>?> GetAllAsync()
         {
             return await _http.GetFromJsonAsync<List<Badge>>("api/Badges");
@@ -29,6 +24,11 @@ namespace HackerSpace.Client.Data.DataServices
         }
 
         public Task UpdateBadge(Badge badge)
+        {
+            throw new NotImplementedException();
+        }        
+        
+        public Task DeleteBadgeAsync(Guid id)
         {
             throw new NotImplementedException();
         }

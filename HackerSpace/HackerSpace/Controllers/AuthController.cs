@@ -14,6 +14,7 @@ namespace HackerSpace.Controllers
             if (principal != null && principal.Identity != null && principal.Identity.IsAuthenticated)
             {
                 // Return a user object with the username and claims
+                // Filter out sensitive information here.
                 var claims = principal.Claims.Select(c => new Claim { Type = c.Type, Value = c.Value }).ToList();
                 return new User
                 {
