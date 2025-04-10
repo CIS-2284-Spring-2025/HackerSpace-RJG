@@ -30,6 +30,7 @@ namespace HackerSpace.Client
 
             //Add data services
             builder.Services.AddTransient<IBadgesPageDataService, BadgesPageDataService>();
+            builder.Services.AddTransient<IEvaluatorsDataService, EvaluatorsDataService>();
 
             await builder.Build().RunAsync();
         }

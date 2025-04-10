@@ -50,7 +50,7 @@ namespace HackerSpace
 
             //Add data services
             builder.Services.AddTransient<IBadgesPageDataService, BadgesPageDataService>();
-            builder.Services.AddTransient<EvaluatorsDataService>();
+            builder.Services.AddTransient<IEvaluatorsDataService, EvaluatorsDataService>();
 
             //To enable web api
             builder.Services.AddControllers();

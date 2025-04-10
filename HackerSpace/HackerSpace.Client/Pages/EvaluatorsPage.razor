@@ -1,0 +1,48 @@
+﻿@page "/EvaluatorsClient"
+@using HackerSpace.Client.Data.DataServices
+@rendermode InteractiveServer
+
+@attribute [Authorize(Roles = "Admin")]
+@inject IEvaluatorsDataService dataService
+@inject NavigationManager Navigation
+
+<h3>Evaluators Page</h3>
+
+@if(evaluators == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    foreach(var evaluator in evaluators)
+    {
+        <p>
+            @evaluator.Email - @evaluator.Badge?.Title
+            <button class="btn btn-primary" @onclick="@(()=>OnEditClicked(evaluator))">Edit</button>
+            <button class="btn btn-danger" @onclick="@(()=>OnDeleteClicked(evaluator))">Delete</button>
+        </p>
+    }
+    <button type="button" class="btn btn-primary" @onclick="OnAddClick">Add</button>
+}
+
+@code {
+    private List<Evaluator>? evaluators = null;
+
+    protected async override Task OnInitializedAsync()
+    {
+        evaluators = await dataService.GetAllAsync();
+    }
+    private void OnAddClick(MouseEventArgs e)
+    {
+        Navigation.NavigateTo("evaluatoredit");
+    }
+    private async Task OnDeleteClicked(Evaluator evaluator)
+    {
+        // await dataService.DeleteAsync(evaluator.Id);
+        // evaluators?.Remove(evaluator);
+    }
+    private void OnEditClicked(Evaluator evaluator)
+    {
+        Navigation.NavigateTo($"evaluatoredit/{evaluator.Id}");
+    }
+}

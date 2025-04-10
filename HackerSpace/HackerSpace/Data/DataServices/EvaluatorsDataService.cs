@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HackerSpace.Data.DataServices
 {
-    public class EvaluatorsDataService //: IEvaluatorsDataService
+    public class EvaluatorsDataService: IEvaluatorsDataService
     {
         private ApplicationDbContext _context;
         private UserManager<ApplicationUser> _userManager;

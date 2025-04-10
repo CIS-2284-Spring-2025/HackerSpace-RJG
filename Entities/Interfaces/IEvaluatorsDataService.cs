@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using HackerSpace.Data;
 
 namespace Entities.Interfaces
 {
@@ -9,6 +10,7 @@ namespace Entities.Interfaces
         public Task<List<Evaluator>?> GetAllAsync();
         public Task<Evaluator?> GetAsync(Guid id);
         public Task UpdateAsync(Evaluator evaluator);
-        //public Task<List<ApplicationUser>> GetApplicationUsersAsync();
+        public Task<List<ApplicationUser>> GetApplicationUsersAsync();
+        public Task<List<Badge>> GetBadgesAsync();
     }
 }
