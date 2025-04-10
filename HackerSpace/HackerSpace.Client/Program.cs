@@ -26,7 +26,7 @@ namespace HackerSpace.Client
 
             builder.Services.AddCascadingAuthenticationState();
             //builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticationStateProvider>();  
-            builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>(); //To get userid         
+            builder.Services.AddScoped<AuthenticationStateProvider, PersistentAuthenticationStateProvider>(); //To get userid         
 
             //Add data services
             builder.Services.AddTransient<IBadgesPageDataService, BadgesPageDataService>();
