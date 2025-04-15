@@ -41,11 +41,12 @@ namespace HackerSpace.Controllers
             await _dataService.AddAsync(evaluator);
         }
 
-        //// PUT api/<EvaluatorsController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        // PUT api/<EvaluatorsController>/5
+        [HttpPut]
+        public async void Put([FromBody] Evaluator evaluator)
+        {
+            await _dataService.UpdateAsync(evaluator);
+        }
 
         // DELETE api/<EvaluatorsController>/5
         [HttpDelete("{id}")]

@@ -27,9 +27,9 @@ namespace HackerSpace.Client.Data.DataServices
             await _http.PostAsJsonAsync($"api/Evaluators", evaluator);
         }
 
-        public Task UpdateAsync(Evaluator evaluator)
+        public async Task UpdateAsync(Evaluator evaluator)
         {
-            throw new NotImplementedException();
+            await _http.PutAsJsonAsync($"api/Evaluators",evaluator);
         }
 
         public async Task DeleteAsync(Guid id)

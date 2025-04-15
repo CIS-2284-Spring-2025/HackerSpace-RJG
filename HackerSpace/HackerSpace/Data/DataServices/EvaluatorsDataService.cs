@@ -40,8 +40,16 @@ namespace HackerSpace.Data.DataServices
 
         public async Task UpdateAsync(Evaluator evaluator)
         {
-            _context.Evaluators.Update(evaluator);
-            await _context.SaveChangesAsync();
+            var existingEvaluator = _context.Evaluators.FirstOrDefault(e => e.Id == evaluator.Id);
+            if (existingEvaluator != null)
+            {
+                existingEvaluator.ApplicationUserId = evaluator.ApplicationUserId;
+                existingEvaluator.BadgeId = evaluator.BadgeId;
+                existingEvaluator.Badge = evaluator.Badge;
+                existingEvaluator.Email = evaluator.Email;
+                _context.Evaluators.Update(existingEvaluator);
+                await _context.SaveChangesAsync();
+            }           
         }
 
         public async Task DeleteAsync(Guid id)
