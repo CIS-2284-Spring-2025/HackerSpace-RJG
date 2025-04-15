@@ -1,6 +1,6 @@
-﻿@page "/EvaluatorsClient"
+﻿@page "/evaluators"
 @using HackerSpace.Client.Data.DataServices
-@rendermode InteractiveServer
+@rendermode InteractiveWebAssembly
 
 @attribute [Authorize(Roles = "Admin")]
 @inject IEvaluatorsDataService dataService
@@ -38,8 +38,8 @@ else
     }
     private async Task OnDeleteClicked(Evaluator evaluator)
     {
-        // await dataService.DeleteAsync(evaluator.Id);
-        // evaluators?.Remove(evaluator);
+        await dataService.DeleteAsync(evaluator.Id);
+        evaluators?.Remove(evaluator);
     }
     private void OnEditClicked(Evaluator evaluator)
     {

@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Entities.Interfaces;
+using Entities.Models;
 using HackerSpace.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,32 +12,34 @@ namespace HackerSpace.Controllers
     [ApiController]
     public class EvaluatorsController : ControllerBase
     {
-        private ApplicationDbContext _context;
+        private IEvaluatorsDataService _dataService;
 
-        public EvaluatorsController(ApplicationDbContext context)
+        public EvaluatorsController(IEvaluatorsDataService dataService)
         {
-            _context=context;
+            _dataService = dataService;
         }
 
         // GET: api/<EvaluatorsController>
         [HttpGet]
-        public async Task<List<Evaluator>> GetAsync()
+        public async Task<List<Evaluator>?> GetAsync()
         {
-            return await _context.Evaluators.ToListAsync();
+            return await _dataService.GetAllAsync();
         }
 
-        //// GET api/<EvaluatorsController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        // GET api/<EvaluatorsController>/5
+        [HttpGet("{id}")]
+        public async Task<Evaluator?> GetAsync(string id)
+        {
+            return await _dataService.GetAsync(Guid.Parse(id));
+        }
 
-        //// POST api/<EvaluatorsController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+
+        // POST api/<EvaluatorsController>
+        [HttpPost]
+        public async Task PostAsync([FromBody] Evaluator evaluator)
+        {
+            await _dataService.AddAsync(evaluator);
+        }
 
         //// PUT api/<EvaluatorsController>/5
         //[HttpPut("{id}")]
@@ -44,10 +47,27 @@ namespace HackerSpace.Controllers
         //{
         //}
 
-        //// DELETE api/<EvaluatorsController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        // DELETE api/<EvaluatorsController>/5
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            _dataService.DeleteAsync(Guid.Parse(id));
+        }
+
+        // GET: api/<EvaluatorsController>
+        [HttpGet]
+        [Route("Badges")]
+        public async Task<List<Badge>?> GetApplicationUsersAsync()
+        {
+            return await _dataService.GetBadgesAsync();
+        }
+
+        // GET: api/<EvaluatorsController>
+        [HttpGet]
+        [Route("AppUsers")]
+        public async Task<List<ApplicationUser>?> GetBadgesAsync()
+        {
+            return await _dataService.GetApplicationUsersAsync();
+        }
     }
 }

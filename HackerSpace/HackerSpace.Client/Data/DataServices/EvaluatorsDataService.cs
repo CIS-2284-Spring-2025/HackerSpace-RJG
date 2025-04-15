@@ -1,6 +1,5 @@
 ﻿using Entities.Interfaces;
 using Entities.Models;
-using HackerSpace.Data;
 using System.Net.Http.Json;
 
 namespace HackerSpace.Client.Data.DataServices
@@ -18,14 +17,14 @@ namespace HackerSpace.Client.Data.DataServices
             return await _http.GetFromJsonAsync<List<Evaluator>>("api/Evaluators");
         }
 
-        public Task<Evaluator?> GetAsync(Guid id)
+        public async Task<Evaluator?> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _http.GetFromJsonAsync<Evaluator>($"api/Evaluators/{id}");
         }
 
-        public Task AddAsync(Evaluator evaluator)
+        public async Task AddAsync(Evaluator evaluator)
         {
-            throw new NotImplementedException();
+            await _http.PostAsJsonAsync($"api/Evaluators", evaluator);
         }
 
         public Task UpdateAsync(Evaluator evaluator)
@@ -33,19 +32,19 @@ namespace HackerSpace.Client.Data.DataServices
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await _http.DeleteAsync($"api/Evaluators/{id}");
         }
 
-        public Task<List<ApplicationUser>> GetApplicationUsersAsync()
+        public async Task<List<ApplicationUser>> GetApplicationUsersAsync()
         {
-            throw new NotImplementedException();
+            return await _http.GetFromJsonAsync<List<ApplicationUser>>($"api/Evaluators/AppUsers")??new List<ApplicationUser>();
         }
 
-        public Task<List<Badge>> GetBadgesAsync()
+        public async Task<List<Badge>> GetBadgesAsync()
         {
-            throw new NotImplementedException();
+            return await _http.GetFromJsonAsync<List<Badge>>($"api/Evaluators/Badges") ?? new List<Badge>();
         }
     }
 }

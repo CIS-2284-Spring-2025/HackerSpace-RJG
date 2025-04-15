@@ -1,5 +1,4 @@
 ﻿using Entities.Models;
-using HackerSpace.Data;
 
 namespace Entities.Interfaces
 {

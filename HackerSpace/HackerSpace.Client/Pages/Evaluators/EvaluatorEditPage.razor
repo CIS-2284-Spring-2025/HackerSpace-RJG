@@ -1,8 +1,8 @@
-﻿@* @page "/evaluatoreditclient/{id}"
-@page "/evaluatoreditclient"
+﻿@page "/evaluatoredit/{id}"
+@page "/evaluatoredit"
 @inject IEvaluatorsDataService dataService
 @inject NavigationManager Navigation
-@rendermode InteractiveServer
+@rendermode InteractiveWebAssembly
 
 <h3>EvaluatorEditPage</h3>
 @if (_evaluator == null)
@@ -78,4 +78,3 @@ else
         Navigation.NavigateTo("evaluators");
     }
 }
- *@

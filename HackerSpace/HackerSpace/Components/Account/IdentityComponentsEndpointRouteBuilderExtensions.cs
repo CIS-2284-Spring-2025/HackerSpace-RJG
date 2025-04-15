@@ -1,7 +1,6 @@
 using Entities.Models;
 using HackerSpace.Components.Account.Pages;
 using HackerSpace.Components.Account.Pages.Manage;
-using HackerSpace.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
